@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="drumset icon" href="images/drumset.png" />
+  <title>Web Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <img src="images/drumkitmain.png"/>
+  </div>
+
+
+  <div class="keys">
+
+    <div data-key="75" class="key">
+      <button onclick="kick.currentTime=0, kick.play()" class="btn"><kbd>K</kbd></button>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="83" class="key">
+      <button onclick="snare.currentTime=0, snare.play()" class="btn"><kbd>S</kbd></button>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="72" class="key">
+      <button onclick="hiHat.currentTime=0, hiHat.play()" class="btn"><kbd>H</kbd></button>
+      <span class="sound">hi-hat</span>
+    </div>
+    <div data-key="67" class="key">
+        <button onclick="crash.currentTime=0, crash.play()" class="btn"><kbd>C</kbd></button>
+      <span class="sound">Crash</span>
+    </div>
+    <div data-key="82" class="key">
+      <button onclick="rack.currentTime=0, rack.play()" class="btn"><kbd>R</kbd></button>
+      <span class="sound">RACK-TOM</span>
+    </div>
+    <div data-key="70" class="key">
+        <button onclick="floor.currentTime=0, floor.play()" class="btn"><kbd>F</kbd></button>
+        <span class="sound">Floor-Tom</span>
+    </div>
+
+  </div>
+
+  <audio data-key="72" src="sounds/highhat.wav"></audio>
+  <audio data-key="75" src="sounds/kick.wav"></audio>
+  <audio data-key="67" src="sounds/crash.wav"></audio>
+  <audio data-key="82" src="sounds/racktom.wav"></audio>
+  <audio data-key="83" src="sounds/snare.wav"></audio>
+  <audio data-key="70" src="sounds/floortom.wav"></audio>
+
+<script>
+  const kick = new Audio("sounds/kick.wav");
+  const snare = new Audio("sounds/snare.wav");
+  const hiHat = new Audio("sounds/highhat.wav");
+  const crash = new Audio("sounds/crash.wav");
+  const rack = new Audio("sounds/racktom.wav");
+  const floor = new Audio("sounds/floortom.wav")
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+</script>
+
+
+</body>
+</html>
