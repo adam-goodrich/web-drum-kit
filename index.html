@@ -16,46 +16,48 @@
   <div class="keys">
 
     <div data-key="75" class="key">
-      <button onclick="kick.currentTime=0, kick.play()" class="btn"><kbd>K</kbd></button>
+      <button id="kick" onClick="clickPlay(this.id)" class="btn"><kbd>K</kbd></button>
       <span class="sound">kick</span>
     </div>
     <div data-key="83" class="key">
-      <button onclick="snare.currentTime=0, snare.play()" class="btn"><kbd>S</kbd></button>
+      <button id="snare" onClick="clickPlay(this.id)" class="btn"><kbd>S</kbd></button>
       <span class="sound">snare</span>
     </div>
     <div data-key="72" class="key">
-      <button onclick="hiHat.currentTime=0, hiHat.play()" class="btn"><kbd>H</kbd></button>
+      <button id="highhat" onClick="clickPlay(this.id)" class="btn"><kbd>H</kbd></button>
       <span class="sound">hi-hat</span>
     </div>
     <div data-key="67" class="key">
-        <button onclick="crash.currentTime=0, crash.play()" class="btn"><kbd>C</kbd></button>
+        <button id="crash" onClick="clickPlay(this.id)" class="btn"><kbd>C</kbd></button>
       <span class="sound">Crash</span>
     </div>
     <div data-key="82" class="key">
-      <button onclick="rack.currentTime=0, rack.play()" class="btn"><kbd>R</kbd></button>
+      <button id="racktom" onClick="clickPlay(this.id)" class="btn"><kbd>R</kbd></button>
       <span class="sound">RACK-TOM</span>
     </div>
     <div data-key="70" class="key">
-        <button onclick="floor.currentTime=0, floor.play()" class="btn"><kbd>F</kbd></button>
-        <span class="sound">Floor-Tom</span>
+      <button id="floortom" onClick="clickPlay(this.id)" class="btn"><kbd>F</kbd></button>
+      <span class="sound">Floor-Tom</span>
     </div>
 
   </div>
 
-  <audio data-key="72" src="sounds/highhat.wav"></audio>
-  <audio data-key="75" src="sounds/kick.wav"></audio>
-  <audio data-key="67" src="sounds/crash.wav"></audio>
-  <audio data-key="82" src="sounds/racktom.wav"></audio>
-  <audio data-key="83" src="sounds/snare.wav"></audio>
-  <audio data-key="70" src="sounds/floortom.wav"></audio>
+  <audio data-key="72" id="highhat" src="sounds/highhat.wav"></audio>
+  <audio data-key="75" id="kick" src="sounds/kick.wav"></audio>
+  <audio data-key="67" id="crash" src="sounds/crash.wav"></audio>
+  <audio data-key="82" id="racktom" src="sounds/racktom.wav"></audio>
+  <audio data-key="83" id="snare" src="sounds/snare.wav"></audio>
+  <audio data-key="70" id="floortom" src="sounds/floortom.wav"></audio>
 
 <script>
-  const kick = new Audio("sounds/kick.wav");
-  const snare = new Audio("sounds/snare.wav");
-  const hiHat = new Audio("sounds/highhat.wav");
-  const crash = new Audio("sounds/crash.wav");
-  const rack = new Audio("sounds/racktom.wav");
-  const floor = new Audio("sounds/floortom.wav")
+
+  function clickPlay(sound) {
+      const button = document.querySelector(`button[id="${sound}"]`);
+      const audio = document.querySelector(`audio[id="${sound}"]`);
+
+      audio.currentTime = 0;
+      audio.play();
+  }
 
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
@@ -81,3 +83,4 @@
 
 </body>
 </html>
+
