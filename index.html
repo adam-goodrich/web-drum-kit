@@ -15,28 +15,28 @@
 
   <div class="keys">
 
-    <div data-key="75" class="key">
-      <button id="kick" onClick="clickPlay(this.id)" class="btn"><kbd>K</kbd></button>
+    <div data-key="75" id="kick" class="key">
+      <button id="kick" class="btn"><kbd>K</kbd></button>
       <span class="sound">kick</span>
     </div>
-    <div data-key="83" class="key">
-      <button id="snare" onClick="clickPlay(this.id)" class="btn"><kbd>S</kbd></button>
+    <div data-key="83" id="snare" class="key">
+      <button id="snare" class="btn"><kbd>S</kbd></button>
       <span class="sound">snare</span>
     </div>
-    <div data-key="72" class="key">
-      <button id="highhat" onClick="clickPlay(this.id)" class="btn"><kbd>H</kbd></button>
+    <div data-key="72" id="highhat" class="key">
+      <button id="highhat" class="btn"><kbd>H</kbd></button>
       <span class="sound">hi-hat</span>
     </div>
-    <div data-key="67" class="key">
-        <button id="crash" onClick="clickPlay(this.id)" class="btn"><kbd>C</kbd></button>
+    <div data-key="67" id="crash" class="key">
+        <button id="crash" class="btn"><kbd>C</kbd></button>
       <span class="sound">Crash</span>
     </div>
-    <div data-key="82" class="key">
-      <button id="racktom" onClick="clickPlay(this.id)" class="btn"><kbd>R</kbd></button>
+    <div data-key="82" id="racktom" class="key">
+      <button id="racktom" class="btn"><kbd>R</kbd></button>
       <span class="sound">RACK-TOM</span>
     </div>
-    <div data-key="70" class="key">
-      <button id="floortom" onClick="clickPlay(this.id)" class="btn"><kbd>F</kbd></button>
+    <div data-key="70" id="floortom" class="key">
+      <button id="floortom" class="btn"><kbd>F</kbd></button>
       <span class="sound">Floor-Tom</span>
     </div>
 
@@ -50,14 +50,6 @@
   <audio data-key="70" id="floortom" src="sounds/floortom.wav"></audio>
 
 <script>
-
-  function clickPlay(sound) {
-      const button = document.querySelector(`button[id="${sound}"]`);
-      const audio = document.querySelector(`audio[id="${sound}"]`);
-
-      audio.currentTime = 0;
-      audio.play();
-  }
 
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
@@ -78,6 +70,20 @@
   const keys = Array.from(document.querySelectorAll('.key'));
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
+
+  const buttons = document.getElementsByTagName("button");
+  const buttonsCount = buttons.length;
+  for (var i = 0; i <= buttonsCount; i ++) {
+    buttons[i].onclick = function(e) {
+      const button = document.querySelector(`button[id="${this.id}"]`);
+      const audio = document.querySelector(`audio[id="${this.id}"]`);
+      const key = document.querySelector(`div[id="${this.id}"]`);
+
+      key.classList.add('playing');
+      audio.currentTime = 0;
+      audio.play();
+    };
+  }
 </script>
 
 
